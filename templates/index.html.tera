@@ -1,31 +1,91 @@
 <!DOCTYPE html>
-<html>
+<html class="h-full bg-black text-white">
 <head>
-    <title>Rocket + Alpine.js</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masjid Clock</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.4/build/global/luxon.min.js"></script>
+    <script src="/static/js/bangla-date.js"></script>
+    <script src="/static/js/app.js"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        [x-cloak] { display: none !important; }
+        /* Smooth transitions for responsive adjustments */
+        * { transition: font-size 0.2s ease-in-out, padding 0.1s ease-in-out; }
+    </style>
 </head>
-<body>
+<body class="h-screen overflow-hidden bg-black text-white">
 
-    <div x-data="{ 
-            data: null, 
-            loading: true,
-            async init() {
-                this.data = await (await fetch('/api/display-data')).json();
-                this.loading = false;
-            }
-         }" 
-         style="font-family: sans-serif; padding: 20px;">
+    <div x-data="masjidClock()" class="h-full flex flex-col">
 
-        <template x-if="loading">
-            <p>Loading ...</p>
-        </template>
+        <!-- Row 1: Title and Subtitle -->
+        <header class="flex-shrink-0 bg-zinc-900/50 p-4 sm:p-6 lg:p-8 border-b border-zinc-800 text-center">
+            <template x-if="!loading">
+                <div>
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-1 sm:mb-2 tracking-tight text-white" x-text="data?.title"></h1>
+                    <h2 class="text-lg sm:text-xl lg:text-2xl text-yellow-500 font-medium tracking-widest uppercase" x-text="data?.subtitle"></h2>
+                </div>
+            </template>
+            <template x-if="loading">
+                <div class="h-12 sm:h-16 flex items-center justify-center">
+                    <div class="w-8 h-8 sm:w-12 sm:h-12 border-4 border-yellow-500 border-t-transparent rounded-full animate-spin"></div>
+                </div>
+            </template>
+        </header>
 
-        <template x-if="!loading">
-            <div>
-                <h1><span x-text="data.title"></span></h1>
-                <h2><span x-text="data.subtitle"></span></h2>
+        <!-- Row 2: Two Columns (Clock and Times) -->
+        <main class="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-2 overflow-hidden">
+            <!-- Column 1: Large Clock + Date Info -->
+            <div class="flex flex-col items-center justify-center bg-black border-b lg:border-b-0 lg:border-r border-zinc-800 p-8 sm:p-12 lg:p-0 space-y-6 lg:space-y-12 overflow-y-auto lg:overflow-hidden">
+                
+                <div class="text-center space-y-2 sm:space-y-4">
+                  <div class="text-2xl sm:text-3xl lg:text-[3vw] font-bold text-zinc-400 tracking-wide uppercase leading-none" x-text="currentDate"></div>
+                  <div class="text-[20vw] lg:text-[14vw] font-mono font-bold tracking-tighter text-yellow-500 drop-shadow-[0_0_20px_rgba(234,179,8,0.4)] whitespace-nowrap leading-none" x-text="currentTime">
+                      00:00
+                  </div>
+                  <div class="text-3xl sm:text-4xl lg:text-[2vw] font-black text-white tracking-widest uppercase leading-none" x-text="currentWeekday"></div>
+                </div>
+
+                <div class="text-center space-y-2 sm:space-y-4 mt-8 sm:mt-12 lg:mt-16">
+                    <div class="text-2xl pt-8 sm:text-3xl lg:text-[3vw] font-bold text-emerald-500 tracking-wide uppercase leading-none" x-text="currentHijriDate"></div>
+                    <div class="text-2xl pt-8 sm:text-3xl lg:text-[3vw] font-bold text-orange-500 tracking-wide uppercase leading-none" x-text="currentBanglaDate"></div>
+                </div>
             </div>
-        </template>
+
+            <!-- Column 2: Times List -->
+            <div class="flex flex-col bg-zinc-950 p-6 sm:p-8 lg:p-12 overflow-y-auto">
+                <template x-if="loading">
+                    <div class="h-full flex items-center justify-center py-12">
+                        <p class="text-xl sm:text-2xl animate-pulse text-zinc-500 uppercase tracking-widest">Updating Schedule...</p>
+                    </div>
+                </template>
+
+                <div x-show="!loading" x-cloak class="space-y-4 sm:space-y-6 lg:space-y-8">
+                    <template x-for="line in data?.lines" :key="line.name">
+                          <div class="flex justify-between items-center border-b border-zinc-800/50 pb-3 sm:pb-4 lg:pb-6 group">
+                              <span class="text-3xl sm:text-4xl lg:text-5xl font-bold text-zinc-400 group-hover:text-white transition-colors" x-text="line.name"></span>
+                              <span class="text-3xl sm:text-4xl lg:text-5xl font-mono font-bold text-yellow-500" x-text="getFormattedLineTime(line)"></span>
+                          </div>
+                    </template>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- Footer: Next Time Section -->
+        <footer class="flex-shrink-0 bg-black p-4 lg:p-6 text-center border-t border-zinc-900 flex flex-col sm:flex-row justify-between items-center px-6 lg:px-12 space-y-4 sm:space-y-0">
+            <p class="text-zinc-600 text-[10px] sm:text-xs lg:text-sm font-medium tracking-widest uppercase text-center sm:text-left">
+                Digital Display System
+            </p>
+            <div class="flex flex-col sm:flex-row items-center sm:space-x-6 space-y-2 sm:space-y-0">
+                <div class="flex items-center space-x-2">
+                    <span class="text-zinc-400 text-base sm:text-lg lg:text-xl font-bold uppercase tracking-widest">Next:</span>
+                    <span class="text-white text-base sm:text-lg lg:text-xl font-bold uppercase tracking-widest" x-text="nextSalahName"></span>
+                </div>
+                <span class="text-2xl sm:text-3xl lg:text-4xl font-mono font-bold text-yellow-500 leading-none" x-text="remainingTimeText">00:00:00</span>
+            </div>
+        </footer>
     </div>
 
 </body>

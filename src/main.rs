@@ -4,6 +4,7 @@ extern crate rocket;
 mod routes;
 mod types;
 
+use rocket::fs::FileServer;
 use rocket_dyn_templates::{Template, context};
 use routes::display_routes::get_display_data;
 
@@ -22,5 +23,6 @@ fn rocket() -> _ {
     rocket::build()
         .mount("/", routes![hello])
         .mount("/api", routes![get_display_data])
+        .mount("/static", FileServer::from("static"))
         .attach(Template::fairing())
 }
