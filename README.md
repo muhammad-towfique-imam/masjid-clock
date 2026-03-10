@@ -73,6 +73,21 @@ Once the certificate is "Verified" in Fly.io:
 1. Change your DNS records in Cloudflare to **Proxied (Orange Cloud)**.
 2. Set SSL/TLS mode to **Full (Strict)** in the Cloudflare dashboard.
 
+## Scaling & Cost Management
+
+### Scale to Single Machine
+To reduce costs, you can scale down to a single machine:
+```bash
+fly scale count 1
+```
+
+### Scale to Zero
+To completely stop incurring costs for running machines, you can scale to zero:
+```bash
+fly scale count 0
+```
+*Note: Your application will not be accessible until you scale back up or redeploy.*
+
 ## Tech Stack
 - **Backend:** Rust with [Rocket](https://rocket.rs/)
 - **Templates:** [Tera](https://keats.github.io/tera/)
