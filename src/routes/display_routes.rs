@@ -48,71 +48,58 @@ pub fn get_display_data() -> Json<DisplayData> {
                 name: "Fazr".into(),
                 elapsed_flags: Some([true; 7]),
                 schedules: vec![
-                    Schedule {
-                        date: NaiveDate::from_ymd_opt(2026, 3, 5).unwrap(),
-                        hour: 5,
-                        min: 15
-                    },
-                    Schedule {
-                        date: NaiveDate::from_ymd_opt(2026, 3, 11).unwrap(),
-                        hour: 5,
-                        min: 30
-                    },
+                    Schedule { date: NaiveDate::from_ymd_opt(2026, 2, 27).unwrap(), hour: 5, min: 26 },
+                    Schedule { date: NaiveDate::from_ymd_opt(2026, 3, 1).unwrap(), hour: 5, min: 25 },
+                    Schedule { date: NaiveDate::from_ymd_opt(2026, 3, 3).unwrap(), hour: 5, min: 23 },
+                    Schedule { date: NaiveDate::from_ymd_opt(2026, 3, 6).unwrap(), hour: 5, min: 20 },
+                    Schedule { date: NaiveDate::from_ymd_opt(2026, 3, 9).unwrap(), hour: 5, min: 17 },
+                    Schedule { date: NaiveDate::from_ymd_opt(2026, 3, 12).unwrap(), hour: 5, min: 15 },
+                    Schedule { date: NaiveDate::from_ymd_opt(2026, 3, 15).unwrap(), hour: 5, min: 12 },
+                    Schedule { date: NaiveDate::from_ymd_opt(2026, 3, 18).unwrap(), hour: 5, min: 9 },
+                    Schedule { date: NaiveDate::from_ymd_opt(2026, 3, 21).unwrap(), hour: 5, min: 20 },
                 ]
             },
             DisplayLine {
                 name: "Zuhr".into(),
                 elapsed_flags: Some([true; 7]),
                 schedules: vec![
-                    Schedule {
-                        date: NaiveDate::from_ymd_opt(2026, 3, 11).unwrap(),
-                        hour: 13,
-                        min: 15
-                    },
+                    Schedule { date: NaiveDate::from_ymd_opt(2026, 2, 27).unwrap(), hour: 13, min: 15 },
                 ]
             },
             DisplayLine {
                 name: "Asr".into(),
                 elapsed_flags: Some([true; 7]),
                 schedules: vec![
-                    Schedule {
-                        date: NaiveDate::from_ymd_opt(2026, 3, 11).unwrap(),
-                        hour: 16,
-                        min: 45
-                    },
+                    Schedule { date: NaiveDate::from_ymd_opt(2026, 2, 27).unwrap(), hour: 16, min: 45 },
                 ]
             },
             DisplayLine {
                 name: "Magrib".into(),
                 elapsed_flags: Some([true; 7]),
                 schedules: vec![
-                    Schedule {
-                        date: NaiveDate::from_ymd_opt(2026, 3, 11).unwrap(),
-                        hour: 18,
-                        min: 25
-                    },
+                    Schedule { date: NaiveDate::from_ymd_opt(2026, 2, 27).unwrap(), hour: 18, min: 22 },
+                    Schedule { date: NaiveDate::from_ymd_opt(2026, 3, 1).unwrap(), hour: 18, min: 23 },
+                    Schedule { date: NaiveDate::from_ymd_opt(2026, 3, 3).unwrap(), hour: 18, min: 24 },
+                    Schedule { date: NaiveDate::from_ymd_opt(2026, 3, 6).unwrap(), hour: 18, min: 25 },
+                    Schedule { date: NaiveDate::from_ymd_opt(2026, 3, 9).unwrap(), hour: 18, min: 27 },
+                    Schedule { date: NaiveDate::from_ymd_opt(2026, 3, 12).unwrap(), hour: 18, min: 28 },
+                    Schedule { date: NaiveDate::from_ymd_opt(2026, 3, 15).unwrap(), hour: 18, min: 29 },
+                    Schedule { date: NaiveDate::from_ymd_opt(2026, 3, 18).unwrap(), hour: 18, min: 30 },
+                    Schedule { date: NaiveDate::from_ymd_opt(2026, 3, 21).unwrap(), hour: 18, min: 21 },
                 ]
             },
             DisplayLine {
                 name: "Isha".into(),
                 elapsed_flags: Some([true; 7]),
                 schedules: vec![
-                    Schedule {
-                        date: NaiveDate::from_ymd_opt(2026, 3, 11).unwrap(),
-                        hour: 20,
-                        min: 0
-                    },
+                    Schedule { date: NaiveDate::from_ymd_opt(2026, 2, 27).unwrap(), hour: 20, min: 0 },
                 ]
             },
             DisplayLine {
                 name: "Jumma".into(),
-                elapsed_flags: Some([false, false, false, false, true, false, false]),
+                elapsed_flags: Some([false, false, false, false, false, true, false]),
                 schedules: vec![
-                    Schedule {
-                        date: NaiveDate::from_ymd_opt(2026, 3, 11).unwrap(),
-                        hour: 13,
-                        min: 0
-                    },
+                    Schedule { date: NaiveDate::from_ymd_opt(2026, 2, 26).unwrap(), hour: 13, min: 0 },
                 ]
             },
         ],
