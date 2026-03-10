@@ -35,6 +35,8 @@ Ensure you have the [Fly CLI](https://fly.io/docs/hands-on/install-flyctl/) inst
 fly deploy
 ```
 
+After deployment, the CLI will provide your application URL (e.g., `https://masjid-clock.fly.dev/`).
+
 ### 2. Custom Domain & SSL Certificates
 
 To set up a custom domain (e.g., `masjid-clock.cyanwarelabs.com`):
@@ -45,7 +47,15 @@ fly certs add masjid-clock.cyanwarelabs.com
 ```
 
 #### Configure DNS
-Add the IPv4 and IPv6 addresses to your DNS provider (e.g., Cloudflare):
+Add your domain to your DNS provider (e.g., Cloudflare):
+
+**Option A: CNAME Record (Recommended for subdomains)**
+1. Create a **CNAME** record:
+   - **Name:** `masjid-clock`
+   - **Target:** `masjid-clock.fly.dev`
+   - **Proxy status:** **DNS Only (Grey Cloud)** during verification.
+
+**Option B: A/AAAA Records**
 1. Run `fly ips list` to get your app's IP addresses.
 2. Create **A** and **AAAA** records pointing to these IPs.
 3. Keep Proxy status as **DNS Only (Grey Cloud)** during verification.
