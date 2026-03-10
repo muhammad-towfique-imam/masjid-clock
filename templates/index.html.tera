@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rocket + Alpine.js</title>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+
+    <div x-data="{ 
+            data: null, 
+            loading: true,
+            async init() {
+                this.data = await (await fetch('/api/display-data')).json();
+                this.loading = false;
+            }
+         }" 
+         style="font-family: sans-serif; padding: 20px;">
+
+        <template x-if="loading">
+            <p>Loading ...</p>
+        </template>
+
+        <template x-if="!loading">
+            <div>
+                <h1><span x-text="data.title"></span></h1>
+                <h2><span x-text="data.subtitle"></span></h2>
+            </div>
+        </template>
+    </div>
+
+</body>
+</html>
