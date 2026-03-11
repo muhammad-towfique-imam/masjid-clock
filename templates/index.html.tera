@@ -75,9 +75,14 @@
 
         <!-- Footer: Next Time Section -->
         <footer class="flex-shrink-0 bg-black p-3 lg:p-6 text-center border-t border-zinc-900 flex flex-col sm:flex-row justify-between items-center px-4 lg:px-12 space-y-2 sm:space-y-0">
-            <p class="text-zinc-600 text-[8px] sm:text-xs lg:text-sm font-medium tracking-widest uppercase text-center sm:text-left">
-                Digital Display System
-            </p>
+            <div class="flex flex-col items-center sm:items-start">
+                <p class="text-zinc-600 text-[8px] sm:text-xs lg:text-sm font-medium tracking-widest uppercase text-center sm:text-left">
+                    Digital Display System
+                </p>
+                <p class="text-zinc-800 text-[6px] sm:text-[10px] lg:text-xs font-medium tracking-widest uppercase text-center sm:text-left" x-show="lastUpdatedText">
+                    Updated: <span x-text="lastUpdatedText"></span>
+                </p>
+            </div>
             <div class="flex flex-col sm:flex-row items-center sm:space-x-4 lg:space-x-6 space-y-1 sm:space-y-0">
                 <div class="flex items-center space-x-2">
                     <span class="text-zinc-400 text-sm sm:text-lg lg:text-xl font-bold uppercase tracking-widest">Next:</span>

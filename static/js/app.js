@@ -11,17 +11,28 @@ function masjidClock() {
         currentBanglaDate: '',
         nextSalahName: '',
         remainingTimeText: '',
+        lastUpdatedText: '',
         
         async init() {
-            try {
-                const response = await fetch('/api/display-data');
-                this.data = await response.json();
-                this.loading = false;
-            } catch (e) {
-                console.error('Failed to fetch data:', e);
-            }
+            await this.refreshData();
             this.updateClock();
             setInterval(() => this.updateClock(), 1000);
+            // Refresh data every 1 minute
+            setInterval(() => this.refreshData(), 60000);
+        },
+
+        async refreshData() {
+            try {
+                const response = await fetch('/api/display-data');
+                if (response.ok) {
+                    this.data = await response.json();
+                    this.lastUpdatedText = DateTime.now().toFormat('h:mm a');
+                    this.loading = false;
+                }
+            } catch (e) {
+                // Silently ignore failures as requested
+                console.error('Failed to refresh data:', e);
+            }
         },
 
         getNow() {
