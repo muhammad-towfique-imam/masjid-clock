@@ -148,7 +148,7 @@ function masjidClock() {
             if (!s) return '--:--';
             
             // Use Luxon to format the time
-            return DateTime.fromObject({ hour: s.hour, minute: s.min }).toFormat('hh:mm a').toUpperCase();
+            return DateTime.fromObject({ hour: s.hour, minute: s.min }).toFormat('hh:mm').toUpperCase();
         }
     };
 }
