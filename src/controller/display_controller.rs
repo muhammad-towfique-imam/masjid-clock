@@ -105,3 +105,17 @@ pub fn get_display_data() -> Json<DisplayData> {
         ],
     })
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_get_display_data() {
+        let response = get_display_data();
+        let data = response.into_inner();
+        assert_eq!(data.title, "Mirpur DOHS Central Masjid");
+        assert_eq!(data.timezone, "Asia/Dhaka");
+        assert!(data.lines.len() > 0);
+    }
+}
