@@ -1,12 +1,12 @@
 #[macro_use]
 extern crate rocket;
 
-mod routes;
+mod controller;
 mod types;
 
 use rocket::fs::{FileServer, relative};
 use rocket_dyn_templates::{Template, context};
-use routes::display_routes::get_display_data;
+use controller::display_controller::get_display_data;
 
 #[get("/")]
 fn hello() -> Template {
